@@ -1,62 +1,47 @@
-#Mfanageza Trading & Projects CRM Solution 
+#Mfanageza Trading & Projects CRM Solution
 -
 
 Project Overview
 -
 
-The Mfanageza Trading & Projects CRM Solution is a Salesforce-based system designed to digitize candidate onboarding, document compliance, and reporting for a South African training and recruitment environment.
+The Mfanageza Trading & Projects CRM Solution is a Salesforce CRM system built to help a training and recruitment company manage candidate applications, compliance documents, and reporting.
 
+Before this system, the company relied on manual paperwork, making it difficult to track documents, communicate with candidates, and prepare for compliance audits.
 
-The solution replaces manual, paper-based processes with an automated CRM that improves data quality, compliance, and operational efficiency.
+This CRM solution digitizes the entire process, improves data quality, automates repetitive tasks, and provides real-time reports for management.
 
-System Architecture
-
-                🌐 Web Layer
-                
-      Web-to-Lead Candidate Form
-      
-                     │
-                     ▼
-                     
-            📂 Data Model Layer
-            
-        Contact ←→ Compliance Document
-        
-                     │
-                     ▼
-                     
-        🛡️ Data Integrity Layer
-        
-      SA ID Validation & Duplicate Prevention
-      
-                     │
-                     ▼
-                     
-      ⚙️ Automation & Email Layer
-      
-   Record-Triggered Flow & Email Notifications
-   
-                     │
-                     ▼
-                     
-     📊 Reporting & Dashboard Layer
-     
-    Compliance Reports & Executive Dashboard
-    
-                     │
-                     ▼
-                     
-      🔐 Security & Access Layer
-      
-     Profiles • Roles • Page Layouts
-     
-1. 🌐 Web Layer
-
-Public Candidate Registration
+How the System Works
 -
 
-The solution begins with a Web-to-Lead HTML form that allows prospective learners to submit:
+The system works in six main stages.
 
+1. Candidate Registration (Web Layer)
+   
+
+The process starts with a Web-to-Lead form.
+
+Candidates visit the company website and complete an online application form by entering:
+
+First Name
+
+Last Name
+
+Email Address
+
+Phone Number
+
+South African ID Number
+
+When the candidate submits the form, Salesforce automatically creates a Lead record.
+
+The administrator reviews the Lead and converts it into a Contact, which becomes the official candidate profile.
+
+2. Candidate Information (Data Model Layer)
+
+
+After the Lead is converted, Salesforce stores the candidate's information in the Contact object.
+
+The Contact record contains:
 
 First Name
 
@@ -64,172 +49,242 @@ Last Name
 
 Email
 
-Phone Number
+Mobile Number
 
 South African ID Number
-
-The submitted information is automatically created as a Lead in Salesforce.
-
-Lead Conversion
--
-
-After reviewing the application, administrators convert qualified Leads into Contact records, creating official candidate profiles.
-
-Data Model Layer
--
-
-Contact (Candidate)
--
-
-The Contact object stores candidate information including:
-
-Personal Details
-
-Contact Information
-
-SA ID Number
 
 Programme
 
 Province
 
-Compliance Document (Custom Object)
+Each Contact represents one candidate.
 
-Each candidate can have multiple compliance documents.
+3. Compliance Documents
 
-Main Fields
-Field	Purpose
-Document Number	Auto Number (DOC-{0000})
-Candidate	Lookup to Contact
-Document Type	Type of submitted document
-Verification Status	Current approval status
-Rejection Reason	Reason for rejection
-Upload Date	Date submitted
-Verified By	Reviewing administrator
-Verification Date	Approval date
-Relationship
-One Contact
-      │
-      │ Lookup
-      ▼
-Many Compliance Documents
 
-This relationship allows one candidate to own multiple compliance documents.
+Every candidate must submit supporting documents.
 
-3. 🛡️ Data Integrity Layer
-Validation Rule
+To manage these documents, I created a custom object called Compliance Document.
 
-SA_ID_Number_13_Digits
+Each document is linked to one candidate using a Lookup Relationship.
 
-Business Rules:
+A candidate can have many documents.
 
-Must contain exactly 13 digits
-Numeric values only
-Unique across all candidates
-Benefits
-Prevents duplicate candidates
-Improves data quality
-Supports SETA compliance
-Reduces manual corrections
-4. ⚙️ Automation Layer
-Record-Triggered Flow
+Examples include:
 
-Compliance Document Rejection Flow
+Certified ID Copy
 
-Trigger
+Matric Certificate
 
-Runs automatically when:
+Proof of Residence
 
-Verification Status = Rejected
-Automated Process
+Learner Affidavit
 
-The system automatically:
+Each document also stores:
 
-Detects rejected documents
-Retrieves candidate information
-Sends an email notification
-Includes rejection reason
-Advises the candidate on the next steps
-Email Automation
 
-Dynamic merge fields include:
+Document Number
 
-Candidate Name
-Document Type
+Verification Status
+
+Upload Date
+
+Verification Date
+
+Verified By
+
 Rejection Reason
 
-This improves communication and reduces manual administrative work.
+This makes it easy to track every document submitted by a candidate.
 
-5. 📊 Reporting & Dashboard Layer
-Reports
-Candidate Audit Report
+4. Data Validation
 
-Displays:
 
-Candidate information
-Programme
-Compliance status
-Outstanding documents
-Compliance Report
+To improve data quality, I created a Validation Rule.
 
-Tracks:
+The rule checks the South African ID Number.
+
+It only allows:
+
+Exactly 13 digits
+
+Numbers only
+
+The field is also Unique, which prevents duplicate candidate records.
+
+This helps keep the database clean and supports compliance requirements.
+
+5. Business Automation
+
+I created a Record-Triggered Flow to automate part of the business process.
+
+When a document's Verification Status changes to Rejected, Salesforce automatically:
+
+Detects the rejected document.
+
+Finds the candidate's email address.
+
+Sends an email explaining why the document was rejected.
+
+Includes the rejection reason.
+
+Tells the candidate what needs to be corrected.
+
+This removes manual work and improves communication with candidates.
+
+6. Reports and Dashboards
+
+
+Managers need to know what is happening in the system.
+
+I created reports that show:
 
 Approved documents
+
 Rejected documents
-Pending verification
-Executive Dashboard
 
-Management can monitor:
+Documents waiting for verification
 
-Candidate registrations
-Compliance progress
-Document verification rates
-Pending approvals
-Overall onboarding performance
+Candidate progress
 
-Visualizations include:
+Outstanding compliance documents
 
-Donut Charts
-Bar Charts
-KPI Metrics
-6. 🔐 Security Layer
+I also created dashboards with charts and KPIs that give management a quick overview of the onboarding process.
 
-Security is managed using Salesforce standard features.
+These dashboards help managers make better decisions.
+
+7. Security
+
+
+Different users have different responsibilities.
+
+I used Salesforce security features such as:
 
 Profiles
 
-Control user permissions.
+Roles
+
+Page Layouts
+
+These features control:
+
+Who can view information
+
+Who can verify documents
+
+Who can edit records
+
+This helps protect sensitive information.
+
+System Architecture
+-
+
+Candidate
+
+     │
+     ▼
+     
+Web-to-Lead Form
+
+     │
+     ▼
+     
+    Lead
+    
+     │
+Convert Lead
+     
+     ▼
+     
+Contact (Candidate)
+     
+     │
+     ▼
+     
+Compliance Documents
+     
+     │
+     ▼
+     
+Validation Rules
+     
+     │
+     ▼
+     
+Automation (Flow)
+     
+     │
+     ▼
+     
+Email Notification
+     
+     │
+     ▼
+     
+Reports & Dashboards
+     
+     │
+     ▼
+     
+Management
+
+Salesforce Features Used
+-
+
+During this project, I used the following Salesforce features:
+
+Custom Objects
+
+Custom Fields
+
+Lookup Relationships
+
+Validation Rules
+
+Record-Triggered Flows
+
+Web-to-Lead
+
+Email Automation
+
+Reports
+
+Dashboards
+
+Profiles
 
 Roles
 
-Restrict document verification responsibilities.
-
 Page Layouts
 
-Provide different interfaces based on user responsibilities while displaying related compliance documents directly from the Contact record.
+Business Benefits
+-
 
-Business Value
+This solution helps the company by:
 
-This CRM solution delivers measurable business benefits by:
+Reducing paperwork.
+Improving data quality.
+Preventing duplicate records.
+Automating candidate communication.
+Saving staff time.
+Improving compliance management.
+Providing real-time reports.
+Helping managers make better decisions.
+What I Learned
 
-Digitizing candidate onboarding
-Improving data quality through validation
-Automating compliance communication
-Reducing manual administrative work
-Providing real-time reporting and dashboards
-Supporting SETA audit readiness
-Enhancing operational efficiency and decision-making
-Technologies Used
-Salesforce CRM
-Custom Objects
-Lookup Relationships
-Validation Rules
-Record-Triggered Flows
-Web-to-Lead
-Email Alerts
-Reports & Dashboards
-Page Layouts
-User Profiles & Roles
-Portfolio Value
+Through this project, I learned how to:
+-
 
-This project demonstrates practical experience in designing and implementing an end-to-end Salesforce CRM solution. It showcases data modeling, business process automation, data validation, reporting, security configuration, and workflow optimization using a realistic South African business scenario. The project highlights both technical Salesforce administration skills and the ability to solve real business challenges, making it a strong portfolio piece for Salesforce Administrator, CRM Administrator, and Business Analyst roles.
+Design a Salesforce data model.
+
+Create custom objects and relationships.
+
+Improve data quality using validation rules.
+
+Automate business processes with Flows.
+
+Build reports and dashboards.
+
+Configure user security.
+
+Solve a real business problem using Salesforce.
