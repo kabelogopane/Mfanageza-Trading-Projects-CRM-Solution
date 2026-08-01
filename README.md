@@ -1,4 +1,4 @@
-#Mfanageza Trading & Projects CRM Solution
+Mfanageza Trading & Projects CRM Solution
 -
 
 Project Overview
@@ -15,164 +15,183 @@ How the System Works
 
 The system works in six main stages.
 
-1. Candidate Registration (Web Layer)
+Candidate Registration (Web Layer)
+-
    
 
 The process starts with a Web-to-Lead form.
 
 Candidates visit the company website and complete an online application form by entering:
 
-First Name
 
-Last Name
+-First Name
 
-Email Address
+-Last Name
 
-Phone Number
+-Email Address
 
-South African ID Number
+-Phone Number
+
+-South African ID Number
+
 
 When the candidate submits the form, Salesforce automatically creates a Lead record.
 
 The administrator reviews the Lead and converts it into a Contact, which becomes the official candidate profile.
 
-2. Candidate Information (Data Model Layer)
-
+Candidate Information (Data Model Layer)
+-
 
 After the Lead is converted, Salesforce stores the candidate's information in the Contact object.
 
 The Contact record contains:
 
-First Name
+-First Name
 
-Last Name
+-Last Name
 
-Email
+-Email
 
-Mobile Number
+-Mobile Number
 
-South African ID Number
+-South African ID Number
 
-Programme
+-Programme
 
-Province
+-Province
+
 
 Each Contact represents one candidate.
 
 3. Compliance Documents
+-
 
+-Every candidate must submit supporting documents.
 
-Every candidate must submit supporting documents.
+-To manage these documents, I created a custom object called Compliance Document.
 
-To manage these documents, I created a custom object called Compliance Document.
+-Each document is linked to one candidate using a Lookup Relationship.
 
-Each document is linked to one candidate using a Lookup Relationship.
+-A candidate can have many documents.
 
-A candidate can have many documents.
 
 Examples include:
 
-Certified ID Copy
 
-Matric Certificate
+-Certified ID Copy
 
-Proof of Residence
+-Matric Certificate
 
-Learner Affidavit
+-Proof of Residence
+
+-Learner Affidavit
+
 
 Each document also stores:
 
 
-Document Number
+-Document Number
 
-Verification Status
+-Verification Status
 
-Upload Date
+-Upload Date
 
-Verification Date
+-Verification Date
 
-Verified By
+-Verified By
 
-Rejection Reason
+-Rejection Reason
+
 
 This makes it easy to track every document submitted by a candidate.
 
-4. Data Validation
+Data Validation
+-
 
+-To improve data quality, I created a Validation Rule.
 
-To improve data quality, I created a Validation Rule.
+-The rule checks the South African ID Number.
 
-The rule checks the South African ID Number.
 
 It only allows:
+-
 
-Exactly 13 digits
+-Exactly 13 digits
 
-Numbers only
+-Numbers only
+
 
 The field is also Unique, which prevents duplicate candidate records.
 
 This helps keep the database clean and supports compliance requirements.
 
-5. Business Automation
+Business Automation
+-
 
 I created a Record-Triggered Flow to automate part of the business process.
 
 When a document's Verification Status changes to Rejected, Salesforce automatically:
 
-Detects the rejected document.
 
-Finds the candidate's email address.
+-Detects the rejected document.
 
-Sends an email explaining why the document was rejected.
+-Finds the candidate's email address.
 
-Includes the rejection reason.
+-Sends an email explaining why the document was rejected.
 
-Tells the candidate what needs to be corrected.
+-Includes the rejection reason.
 
-This removes manual work and improves communication with candidates.
+-Tells the candidate what needs to be corrected.
 
-6. Reports and Dashboards
+-This removes manual work and improves communication with candidates.
 
+Reports and Dashboards
+-
 
 Managers need to know what is happening in the system.
 
 I created reports that show:
 
-Approved documents
 
-Rejected documents
+-Approved documents
 
-Documents waiting for verification
+-Rejected documents
 
-Candidate progress
+-Documents waiting for verification
 
-Outstanding compliance documents
+-Candidate progress
+
+-Outstanding compliance documents
+
 
 I also created dashboards with charts and KPIs that give management a quick overview of the onboarding process.
 
 These dashboards help managers make better decisions.
 
-7. Security
-
+Security
+-
 
 Different users have different responsibilities.
 
 I used Salesforce security features such as:
 
-Profiles
 
-Roles
+-Profiles
 
-Page Layouts
+-Roles
+
+-Page Layouts
+
 
 These features control:
 
-Who can view information
 
-Who can verify documents
+-Who can view information
 
-Who can edit records
+-Who can verify documents
+
+-Who can edit records
+
 
 This helps protect sensitive information.
 
@@ -233,58 +252,67 @@ Salesforce Features Used
 
 During this project, I used the following Salesforce features:
 
-Custom Objects
 
-Custom Fields
+-Custom Objects
 
-Lookup Relationships
+-Custom Fields
 
-Validation Rules
+-Lookup Relationships
 
-Record-Triggered Flows
+-Validation Rules
 
-Web-to-Lead
+-Record-Triggered Flows
 
-Email Automation
+-Web-to-Lead
 
-Reports
+-Email Automation
 
-Dashboards
+-Reports
 
-Profiles
+-Dashboards
 
-Roles
+-Profiles
 
-Page Layouts
+-Roles
+
+-Page Layouts
 
 Business Benefits
 -
 
 This solution helps the company by:
 
-Reducing paperwork.
-Improving data quality.
-Preventing duplicate records.
-Automating candidate communication.
-Saving staff time.
-Improving compliance management.
-Providing real-time reports.
-Helping managers make better decisions.
-What I Learned
+-Reducing paperwork.
+
+-Improving data quality.
+
+-Preventing duplicate records.
+
+-Automating candidate communication.
+
+-Saving staff time.
+
+-Improving compliance management.
+
+-Providing real-time reports.
+
+-Helping managers make better decisions.
+
+-What I Learned
 
 Through this project, I learned how to:
 -
 
-Design a Salesforce data model.
+-Design a Salesforce data model.
 
-Create custom objects and relationships.
+-Create custom objects and relationships.
 
-Improve data quality using validation rules.
+-Improve data quality using validation rules.
 
-Automate business processes with Flows.
+-Automate business processes with Flows.
 
-Build reports and dashboards.
+-Build reports and dashboards.
 
-Configure user security.
+-Configure user security.
 
 Solve a real business problem using Salesforce.
