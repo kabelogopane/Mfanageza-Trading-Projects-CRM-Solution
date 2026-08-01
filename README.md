@@ -63,7 +63,8 @@ The Contact record contains:
 
 Each Contact represents one candidate.
 
-<h>Compliance Documents<h\>
+Compliance Documents
+-
 
 
 -Every candidate must submit supporting documents.
