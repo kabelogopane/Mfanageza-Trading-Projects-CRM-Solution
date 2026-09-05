@@ -1,319 +1,652 @@
-Mfanageza Trading & Projects CRM Solution
--
+# Mfanageza Trading & Projects CRM Solution
 
-Project Overview
--
+## Salesforce Candidate & Learnership Management CRM
 
-The Mfanageza Trading & Projects CRM Solution is a Salesforce CRM system built to help a training and recruitment company manage candidate applications, compliance documents, and reporting.
+**Role:** Salesforce Administrator & Business Analyst  
+**Platform:** Salesforce Lightning Experience  
+**Project status:** In active development  
+**Repository owner:** Kabelo Gopane
 
-Before this system, the company relied on manual paperwork, making it difficult to track documents, communicate with candidates, and prepare for compliance audits.
+---
 
-This CRM solution digitizes the entire process, improves data quality, automates repetitive tasks, and provides real-time reports for management.
+## 1. Project Overview
 
-How the System Works
--
+The **Mfanageza Trading & Projects CRM Solution** is a Salesforce portfolio project designed around a South African training, recruitment and skills-development environment.
 
-The system works in six main stages.
+The project started as a practical Salesforce learning exercise: instead of only completing Trailhead exercises, I wanted to build a system that could solve a realistic business problem. The solution has grown from manually creating and testing Salesforce records into a structured CRM with a candidate, application, programme and compliance data model.
 
-Candidate Registration (Web Layer)
--
-   
+The main goal is to digitise and improve the candidate journey:
 
-The process starts with a Web-to-Lead form.
+**Candidate → Application → Programme → Compliance → Verification → Communication → Reporting**
 
-Candidates visit the company website and complete an online application form by entering:
+The CRM is being designed to reduce manual administration, improve data quality, make candidate information easier to manage, and give administrators better visibility of the application process.
 
+> **Portfolio note:** Features are marked as **Implemented**, **In Progress**, or **Planned** so the repository reflects the actual development stage rather than claiming unfinished functionality as complete.
 
--First Name
+---
 
--Last Name
+## 2. How the Project Started
 
--Email Address
+The project began before there was a dedicated Salesforce Lightning App. I initially worked directly inside Salesforce, creating records and learning how the platform's objects, fields and relationships worked.
 
--Phone Number
+The early work focused on understanding the business process and testing how candidate information could be organised.
 
--South African ID Number
+The project then developed into a more complete CRM design with:
 
+- Candidate management
+- Candidate Applications
+- Programme management
+- Compliance Documents
+- Relationships between records
+- Data validation
+- Salesforce navigation
+- Automation planning
+- Reporting and dashboards
+- A future candidate-facing experience
 
-When the candidate submits the form, Salesforce automatically creates a Lead record.
+Creating the Salesforce App became an important milestone because it made the CRM easier for an administrator to navigate instead of working across disconnected objects.
 
-The administrator reviews the Lead and converts it into a Contact, which becomes the official candidate profile.
+---
 
-Candidate Information (Data Model Layer)
--
+## 3. Business Problem
 
-After the Lead is converted, Salesforce stores the candidate's information in the Contact object.
+A training and recruitment organisation can receive many candidate applications and supporting documents. Managing this information manually can create problems such as:
 
-The Contact record contains:
+- Candidate information being entered repeatedly
+- Difficulty tracking application status
+- Difficulty knowing which documents have been submitted
+- Missing or rejected documents delaying processing
+- Manual follow-ups with candidates
+- Poor visibility for management
+- Time-consuming reporting
+- Data-quality errors
 
--First Name
+The CRM is intended to provide one structured Salesforce environment for managing this process.
 
--Last Name
+---
 
--Email
+## 4. Current Salesforce Data Model
 
--Mobile Number
+```text
+                         CONTACT
+                       (Candidate)
+                            │
+                            │ Lookup
+                            ▼
+                 CANDIDATE APPLICATION
+                            │
+                 ┌──────────┼──────────┐
+                 │          │          │
+                 ▼          ▼          ▼
+            PROGRAMME   COMPLIANCE   APPLICATION
+             LOOKUP     DOCUMENTS       DATA
+                 │          │
+                 ▼          ▼
+          IT Systems     ID / CV /
+          Development    Matric /
+                         Residence
+```
 
--South African ID Number
+### Candidate / Contact
 
--Programme
+I use Salesforce's standard **Contact** object to represent a candidate rather than creating a separate Candidate object unnecessarily.
 
--Province
+Candidate information can include:
 
+- First Name
+- Last Name
+- Email
+- Mobile Number
+- South African ID Number
+- Province
+- Programme-related information
 
-Each Contact represents one candidate.
+### Candidate Application
 
-Compliance Documents
--
+The **Candidate Application** custom object represents an individual application submitted by a candidate.
 
+Important fields configured during the project include:
 
--Every candidate must submit supporting documents.
+- Application Number — Auto Number
+- Application Date — Date
+- Application Status — Picklist
+- Candidate — Lookup to Contact
+- Employment Status — Picklist
+- Province — Picklist
+- SETA — Picklist
+- SETA Registration Status — Picklist
+- Start Date — Date
+- Programme Type — Picklist
+- Programme Lookup — Lookup to Programme
 
--To manage these documents, I created a custom object called Compliance Document.
+Example test record:
 
--Each document is linked to one candidate using a Lookup Relationship.
+```text
+Application Number: APP-00001
+Candidate: Mpho Lesiba
+Application Status: New
+Programme Type: Learnership
+Programme: IT Systems Development
+Application Date: 2026/08/28
+Start Date: 2026/10/05
+Province: Gauteng
+Employment Status: Unemployed
+SETA: MICT SETA
+SETA Registration Status: Submitted
+```
 
--A candidate can have many documents.
+### Programme
 
+A separate **Programme** custom object was created because a programme is a business entity of its own.
 
-Examples include:
+Configured fields include:
 
+- Programme Type
+- SETA
+- NQF Level
+- Start Date
+- End Date
+- Capacity
+- Status
 
--Certified ID Copy
+Example programmes used for testing include:
 
--Matric Certificate
+- IT Systems Development
+- IT Technical Support
+- Cybersecurity
+- Data Analytics
 
--Proof of Residence
+A key data-modelling improvement was separating **Programme Type** from the actual **Programme** record.
 
--Learner Affidavit
+For example:
 
+```text
+Programme Type = Learnership
+Programme = IT Systems Development
+```
 
-Each document also stores:
+This is more accurate than storing "Learnership" as the programme itself.
 
+### Compliance Documents
 
--Document Number
+The **Compliance Document** custom object is used to track documents associated with an application/candidate.
 
--Verification Status
+The document process is designed around records such as:
 
--Upload Date
+- Certified ID Copy
+- CV
+- Matric Certificate
+- Proof of Residence
 
--Verification Date
+Document information can include:
 
--Verified By
+- Document Type
+- Verification Status
+- Rejection Reason
+- Upload Date
+- Verification Date
+- Verified By
+- Candidate/Application relationship
 
--Rejection Reason
+The working test application, **APP-00001**, has been used to demonstrate the related-document relationship and has had four compliance document records associated with it.
 
+---
 
-This makes it easy to track every document submitted by a candidate.
+## 5. Salesforce Navigation / App Development
 
-Data Validation
--
+A major stage of the project was moving from working directly with individual Salesforce objects to creating a dedicated Lightning App experience.
 
--To improve data quality, I created a Validation Rule.
+The navigation is intended to make the administrator's work easier:
 
--The rule checks the South African ID Number.
+```text
+Mfanageza CRM
+│
+├── Home
+├── Contacts
+├── Candidate Applications
+├── Programmes
+├── Reports
+└── Dashboards
+```
 
+### Problem solved: Candidate Applications was not visible
 
-It only allows:
--
+The Candidate Application object existed, but it was not immediately available in the application navigation.
 
--Exactly 13 digits
+The issue was investigated and resolved by creating/configuring the required **Custom Object Tab** and adding **Candidate Applications** to the Lightning App navigation.
 
--Numbers only
+This demonstrated an important Salesforce administration concept:
 
+**Custom Object → Custom Object Tab → Lightning App Navigation**
 
-The field is also Unique, which prevents duplicate candidate records.
+### Problem solved: Programme field conflict
 
-This helps keep the database clean and supports compliance requirements.
+Candidate Application initially had a field called **Programme** as a Picklist. Later, a Lookup relationship to the Programme object was required.
 
-Business Automation
--
+Salesforce prevented a duplicate field name.
 
-I created a Record-Triggered Flow to automate part of the business process.
+The solution was to distinguish between:
 
-When a document's Verification Status changes to Rejected, Salesforce automatically:
+- **Programme Type** — Picklist, for values such as Learnership
+- **Programme Lookup** — Lookup relationship to an actual Programme record
 
+A duplicate lookup was also encountered and removed after identifying that it was being used on the Lightning Record Page.
 
--Detects the rejected document.
+This was an important troubleshooting and Salesforce configuration lesson.
 
--Finds the candidate's email address.
+---
 
--Sends an email explaining why the document was rejected.
+## 6. Data Quality and Validation Rules
 
--Includes the rejection reason.
+Three validation rules were created during the project.
 
--Tells the candidate what needs to be corrected.
+### 1. Application Date Cannot Be in the Future
 
--This removes manual work and improves communication with candidates.
+```text
+Application_Date__c > TODAY()
+```
 
-Reports and Dashboards
--
+Purpose: prevent an application date later than the current date.
 
-Managers need to know what is happening in the system.
+### 2. Submitted Application Requires a Programme
 
-I created reports that show:
+```text
+AND(
+    ISPICKVAL(Application_Status__c, "Submitted"),
+    ISBLANK(Programme_Lookup__c)
+)
+```
 
+Purpose: prevent an application from being marked Submitted without a programme.
 
--Approved documents
+### 3. Start Date Cannot Be Before Application Date
 
--Rejected documents
+```text
+Start_Date__c < Application_Date__c
+```
 
--Documents waiting for verification
+Purpose: prevent an invalid date sequence.
 
--Candidate progress
+These rules demonstrate how Salesforce can enforce business rules rather than simply store data.
 
--Outstanding compliance documents
+---
 
+## 7. Automation
 
-I also created dashboards with charts and KPIs that give management a quick overview of the onboarding process.
+### Status Automation — In Progress
 
-These dashboards help managers make better decisions.
+A Record-Triggered Flow was started for the Candidate Application process.
 
-Security
--
+The intended business logic is:
 
-Different users have different responsibilities.
+```text
+SETA Registration Status = Submitted
+                 +
+         Programme selected
+                 +
+       Application Status = New
+                 ↓
+       Application Status = Submitted
+```
 
-I used Salesforce security features such as:
+The Flow configuration reached the Assignment stage, where the record field needs to be updated correctly.
 
+**Status: In Progress — not presented as complete yet.**
 
--Profiles
+### Compliance Rejection Automation — Planned / To Be Verified
 
--Roles
+The intended compliance process is:
 
--Page Layouts
+```text
+Document submitted
+       ↓
+Compliance Review
+       ↓
+Approved OR Rejected
+       ↓
+If Rejected → notify candidate
+       ↓
+Candidate corrects document
+       ↓
+Document reviewed again
+```
 
+The exact final implementation will be documented after it is tested successfully in Salesforce.
 
-These features control:
+---
 
+## 8. Administrator Experience
 
--Who can view information
+The Salesforce Administrator is the main internal user of the CRM.
 
--Who can verify documents
+The administrator can be responsible for:
 
--Who can edit records
+- Managing candidates
+- Managing applications
+- Managing programmes
+- Reviewing compliance documents
+- Maintaining data quality
+- Importing data
+- Monitoring application status
+- Running reports
+- Viewing dashboards
+- Maintaining Salesforce configuration
+- Managing automation
 
+The administrator experience is being designed around one central application rather than requiring users to navigate through Salesforce Setup for normal business work.
 
-This helps protect sensitive information.
+---
 
-System Architecture
--
+## 9. Candidate Experience — Future Stage
 
+A future candidate-facing experience is planned so that candidates can interact with the system without accessing Salesforce administration screens.
+
+The proposed journey is:
+
+```text
 Candidate
+   ↓
+Registration / Application
+   ↓
+Application Reference
+   ↓
+Upload Required Documents
+   ↓
+Application Under Review
+   ↓
+Approved / Rejected
+   ↓
+Correct Documents if Required
+   ↓
+Application Progress
+```
 
-     │
-     ▼
-     
-Web-to-Lead Form
+A candidate-facing portal or Experience Cloud implementation can be considered after the internal Salesforce process is stable and tested.
 
-     │
-     ▼
-     
-    Lead
-    
-     │
-Convert Lead
-     
-     ▼
-     
-Contact (Candidate)
-     
-     │
-     ▼
-     
-Compliance Documents
-     
-     │
-     ▼
-     
-Validation Rules
-     
-     │
-     ▼
-     
-Automation (Flow)
-     
-     │
-     ▼
-     
-Email Notification
-     
-     │
-     ▼
-     
-Reports & Dashboards
-     
-     │
-     ▼
-     
-Management
+---
 
-Salesforce Features Used
--
+## 10. Excel / CSV Data Import
 
-During this project, I used the following Salesforce features:
+Another important part of the project is handling existing business data.
 
+If candidate information already exists in Excel, the administrator can prepare the data and export it as CSV before importing it into Salesforce.
 
--Custom Objects
+Typical process:
 
--Custom Fields
+```text
+Excel
+  ↓
+CSV
+  ↓
+Salesforce Import Tool
+  ↓
+Field Mapping
+  ↓
+Validation / Data Quality Checks
+  ↓
+Salesforce Records
+```
 
--Lookup Relationships
+Example mapping:
 
--Validation Rules
+| Excel Column | Salesforce Field |
+|---|---|
+| First Name | Contact First Name |
+| Surname | Contact Last Name |
+| Email | Contact Email |
+| Province | Province |
+| Employment Status | Employment Status |
+| Programme | Programme relationship |
 
--Record-Triggered Flows
+This will form part of the project's data-management and migration testing.
 
--Web-to-Lead
+---
 
--Email Automation
+## 11. SETA, UIF and SARS Requirements
 
--Reports
+The project is being designed around the type of information that may be relevant to South African skills-development and learnership administration.
 
--Dashboards
+### SETA
 
--Profiles
+SETA information is already represented in the CRM through Programme and Candidate Application data.
 
--Roles
+### UIF
 
--Page Layouts
+UIF-related information and document requirements have been discussed as a possible extension of the candidate compliance process.
 
-Business Benefits
--
+### SARS Tax Number
 
-This solution helps the company by:
+A tax-number field has also been identified as a potential candidate/application requirement because tax information can be requested during employment, learnership or administrative processes.
 
--Reducing paperwork.
+**Important:** These are being treated as business requirements to evaluate and design correctly. They are not documented as fully implemented Salesforce functionality until the relevant fields, validation, security and process have been built and tested.
 
--Improving data quality.
+---
 
--Preventing duplicate records.
+## 12. Reports and Dashboards — Next Development Stage
 
--Automating candidate communication.
+The reporting layer will provide management visibility into the candidate pipeline and compliance process.
 
--Saving staff time.
+Planned reports include:
 
--Improving compliance management.
+- Applications by Status
+- Applications by Programme
+- Applications by Province
+- Applications by SETA
+- Applications by Employment Status
+- Compliance Documents by Status
+- Approved Documents
+- Rejected Documents
+- Documents Awaiting Verification
+- Candidates Ready for SETA Registration
 
--Providing real-time reports.
+The planned management dashboard will provide a high-level view of:
 
--Helping managers make better decisions.
+- Total Applications
+- Application Status
+- Programme Distribution
+- Province Distribution
+- Compliance Progress
+- Programme Capacity
 
--What I Learned
+**Status: Planned / next implementation stage.**
 
-Through this project, I learned how to:
--
+---
 
--Design a Salesforce data model.
+## 13. Development Roadmap
 
--Create custom objects and relationships.
+### Phase 1 — CRM Foundation ✅
 
--Improve data quality using validation rules.
+- Candidate management using Contact
+- Candidate Application custom object
+- Programme custom object
+- Compliance Document custom object
+- Custom fields
+- Lookup relationships
+- Custom tabs
+- Lightning App navigation
 
--Automate business processes with Flows.
+### Phase 2 — Data Quality ✅
 
--Build reports and dashboards.
+- Application date validation
+- Programme requirement validation
+- Start/application date validation
+- Testing with realistic records
 
--Configure user security.
+### Phase 3 — Automation 🔄
 
-Solve a real business problem using Salesforce.
+- Finish Candidate Application status Flow
+- Build and test compliance automation
+- Configure candidate notifications
+
+### Phase 4 — Data Management ⏳
+
+- Prepare sample Excel dataset
+- Export to CSV
+- Import into Salesforce
+- Map fields
+- Test data quality and relationships
+
+### Phase 5 — Reporting ⏳
+
+- Build operational reports
+- Build management dashboard
+- Test dashboard data
+
+### Phase 6 — User Experience ⏳
+
+- Improve administrator Lightning App
+- Improve record pages
+- Design candidate-facing experience
+- Evaluate Experience Cloud
+
+### Phase 7 — Portfolio Documentation 📸
+
+For every major implementation, capture:
+
+1. What was built
+2. Why it was built
+3. Salesforce feature used
+4. Configuration steps
+5. Problem encountered
+6. How the problem was solved
+7. Business benefit
+8. Screenshot
+9. Testing result
+
+---
+
+## 14. Skills Demonstrated
+
+### Salesforce Administration
+
+- Salesforce Lightning Experience
+- Custom Objects
+- Custom Fields
+- Custom Object Tabs
+- Lookup Relationships
+- Picklists
+- Validation Rules
+- Lightning App Navigation
+- Lightning Record Pages
+- Flow Builder
+- Reports and Dashboards
+- Data Management
+
+### Business Analysis
+
+- Requirements gathering
+- Business process mapping
+- Data modelling
+- Process improvement
+- Candidate lifecycle management
+- Compliance process design
+- Translating business requirements into Salesforce configuration
+- Troubleshooting and problem solving
+
+### Data Management
+
+- Excel / CSV preparation
+- Field mapping
+- Data quality controls
+- Relational data design
+- Import planning
+
+---
+
+## 15. Problems Solved During Development
+
+This project has also been a practical troubleshooting exercise.
+
+### Problem: Custom object not visible in the App
+
+**Cause:** Required tab/navigation configuration was missing.  
+**Solution:** Created the Custom Object Tab and added it to the Lightning App navigation.
+
+### Problem: Duplicate Programme field name
+
+**Cause:** A Programme Picklist already existed when a Programme Lookup was being created.  
+**Solution:** Separated Programme Type from the Programme Lookup relationship.
+
+### Problem: Duplicate Lookup could not be deleted
+
+**Cause:** The field was still referenced by a Lightning Record Page.  
+**Solution:** Removed the field from the Lightning Page before continuing with cleanup.
+
+### Problem: Flow Assignment configuration
+
+**Status:** Still being completed.  
+**Lesson:** Salesforce Flow requires the record field and assignment value to be configured correctly before the automation can be activated.
+
+These problems are part of the project's learning evidence because they show actual Salesforce administration and troubleshooting rather than only following a tutorial.
+
+---
+
+## 16. Business Value
+
+The intended business value of the solution is to:
+
+- Reduce manual administration
+- Improve candidate data quality
+- Reduce duplicate or incomplete information
+- Improve compliance tracking
+- Make application progress easier to monitor
+- Reduce repetitive communication work
+- Improve management visibility
+- Provide a scalable foundation for future candidate services
+
+---
+
+## 17. Project Architecture
+
+```text
+                    CANDIDATE
+                        │
+                        ▼
+               Candidate Registration
+                        │
+                        ▼
+                     CONTACT
+                  Candidate Profile
+                        │
+                        ▼
+             CANDIDATE APPLICATION
+                        │
+             ┌──────────┴──────────┐
+             │                     │
+             ▼                     ▼
+         PROGRAMME          COMPLIANCE DOCUMENTS
+             │                     │
+             ▼                     ▼
+       Programme Data        Verification Status
+                                   │
+                                   ▼
+                              Automation
+                                   │
+                                   ▼
+                              Notification
+                                   │
+                                   ▼
+                         Reports & Dashboards
+                                   │
+                                   ▼
+                              MANAGEMENT
+```
+
+---
+
+## 18. Portfolio Objective
+
+This project is part of my Salesforce portfolio and is intended to demonstrate practical ability to:
+
+> **Analyse a business process, design a Salesforce data model, configure Salesforce objects and relationships, enforce data quality, build automation, manage data, create reporting, troubleshoot configuration problems, and continuously improve a CRM solution.**
+
+The project is intentionally being documented throughout development so that the final portfolio shows not only the finished system, but also the reasoning, configuration decisions, challenges and lessons learned.
+
+---
+
+## Author
+
+**Kabelo Gopane**  
+Salesforce Administrator | Business Analyst | CRM Enthusiast
+
+This is a portfolio project developed to demonstrate hands-on Salesforce administration, CRM design, business analysis, data management, automation and problem-solving skills.
