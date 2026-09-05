@@ -1,55 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const configured = typeof SALESFORCE_PORTAL_URL === 'string' &&
-    SALESFORCE_PORTAL_URL.startsWith('https://') &&
-    !SALESFORCE_PORTAL_URL.includes('YOUR-SALESFORCE-EXPERIENCE-DOMAIN');
-
-  document.querySelectorAll('[data-salesforce-link]').forEach(link => {
-    if (configured) {
-      link.href = SALESFORCE_PORTAL_URL;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-    } else {
-      link.href = '#apply';
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        alert('The Salesforce candidate portal has not been configured yet. Update SALESFORCE_PORTAL_URL in config.js after your Experience Cloud site is ready.');
-      });
-    }
-  });
-
-  const statusForm = document.getElementById('statusForm');
-  const statusMessage = document.getElementById('statusMessage');
-  if (statusForm) {
-    statusForm.addEventListener('submit', event => {
-      event.preventDefault();
-      const reference = document.getElementById('reference').value.trim().toUpperCase();
-      if (!reference) return;
-      if (configured) {
-        const separator = SALESFORCE_PORTAL_URL.includes('?') ? '&' : '?';
-        window.open(`${SALESFORCE_PORTAL_URL}${separator}reference=${encodeURIComponent(reference)}`, '_blank', 'noopener');
-        statusMessage.textContent = 'Opening the secure Salesforce candidate portal…';
-      } else {
-        statusMessage.textContent = `Reference ${reference} is ready. Configure the Salesforce portal URL to enable live tracking.`;
-      }
-    });
-  }
-
-  const menuButton = document.getElementById('menuButton');
-  const nav = document.querySelector('nav');
-  if (menuButton && nav) {
-    menuButton.addEventListener('click', () => {
-      const open = nav.dataset.open === 'true';
-      nav.dataset.open = String(!open);
-      nav.style.display = open ? '' : 'flex';
-      nav.style.position = open ? '' : 'absolute';
-      nav.style.top = open ? '' : '76px';
-      nav.style.left = open ? '' : '0';
-      nav.style.right = open ? '' : '0';
-      nav.style.padding = open ? '' : '18px';
-      nav.style.background = open ? '' : '#fff';
-      nav.style.borderBottom = open ? '' : '1px solid #dfe6ee';
-      nav.style.flexDirection = open ? '' : 'column';
-      nav.style.alignItems = open ? '' : 'stretch';
-    });
-  }
+document.addEventListener('DOMContentLoaded',()=>{
+  const theme=document.createElement('link');theme.rel='stylesheet';theme.href='academy.css';document.head.appendChild(theme);
+  const configured=typeof SALESFORCE_PORTAL_URL==='string'&&SALESFORCE_PORTAL_URL.startsWith('https://')&&!SALESFORCE_PORTAL_URL.includes('YOUR-SALESFORCE-EXPERIENCE-DOMAIN');
+  document.querySelectorAll('[data-salesforce-link]').forEach(link=>{if(configured){link.href=SALESFORCE_PORTAL_URL;link.target='_blank';link.rel='noopener noreferrer'}else{link.href='#status';link.addEventListener('click',e=>{e.preventDefault();document.getElementById('status')?.scrollIntoView({behavior:'smooth'});const msg=document.getElementById('statusMessage');if(msg)msg.textContent='The secure Salesforce candidate portal is not configured yet. Add its public Experience Cloud URL in config.js when it is ready.'})}});
+  const form=document.getElementById('statusForm'),msg=document.getElementById('statusMessage');
+  form?.addEventListener('submit',e=>{e.preventDefault();const ref=document.getElementById('reference').value.trim().toUpperCase();if(!ref)return;if(configured){const sep=SALESFORCE_PORTAL_URL.includes('?')?'&':'?';window.open(`${SALESFORCE_PORTAL_URL}${sep}reference=${encodeURIComponent(ref)}`,'_blank','noopener');msg.textContent='Opening the secure Salesforce candidate portal…'}else msg.textContent=`Reference ${ref} is ready. Configure the Salesforce portal URL to enable live tracking.`});
+  const menu=document.getElementById('menuButton'),nav=document.getElementById('mainNav');
+  menu?.addEventListener('click',()=>{const open=nav.dataset.open==='true';nav.dataset.open=String(!open);nav.style.display=open?'':'flex';nav.style.position=open?'':'absolute';nav.style.top=open?'':'70px';nav.style.left='0';nav.style.right='0';nav.style.padding=open?'':'18px';nav.style.background=open?'':'#07111f';nav.style.flexDirection=open?'':'column';nav.style.alignItems=open?'':'stretch';menu.setAttribute('aria-expanded',String(!open));});
+  nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=950){nav.dataset.open='false';nav.style.display='';menu?.setAttribute('aria-expanded','false')}}));
 });
