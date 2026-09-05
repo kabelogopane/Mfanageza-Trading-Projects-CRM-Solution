@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mfanageza Trading & Projects candidate application portal">
+  <title>Mfanageza | Candidate Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="Mfanageza Candidate Portal home">
+        <span class="brand-mark">M</span>
+        <span>Mfanageza<span class="brand-accent">.</span></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#programmes">Programmes</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#status">Application status</a>
+        <a class="nav-button" data-salesforce-link href="#">Open Salesforce Portal</a>
+      </nav>
+      <button class="menu-button" id="menuButton" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Skills development • Learnerships • Training</div>
+          <h1>Start your next opportunity with <span>Mfanageza</span>.</h1>
+          <p class="hero-copy">Apply for available programmes, keep your application reference, and use the candidate portal to follow your progress.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#apply">Start an application</a>
+            <a class="button secondary" data-salesforce-link href="#">Candidate login</a>
+          </div>
+          <div class="trust-row">
+            <span>✓ Secure application process</span>
+            <span>✓ Application reference</span>
+            <span>✓ Document tracking</span>
+          </div>
+        </div>
+        <div class="portal-card">
+          <div class="card-topline"><span class="status-dot"></span> Candidate portal</div>
+          <h2>Track your application</h2>
+          <p>Enter your application reference to continue in the Salesforce-powered candidate experience.</p>
+          <form id="statusForm" class="status-form">
+            <label for="reference">Application reference</label>
+            <input id="reference" name="reference" placeholder="Example: APP-00001" autocomplete="off" required>
+            <button class="button primary full" type="submit">Continue</button>
+          </form>
+          <p id="statusMessage" class="form-message" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="programmes" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Programmes</div>
+            <h2>Explore current opportunities</h2>
+          </div>
+          <p>Programme information is managed in the Salesforce CRM by authorised staff.</p>
+        </div>
+        <div class="programme-grid">
+          <article class="programme-card">
+            <span class="tag active">Active</span>
+            <h3>IT Systems Development</h3>
+            <p>Learnership • MICT SETA • NQF 5</p>
+            <div class="card-meta"><span>Capacity</span><strong>30</strong></div>
+            <a href="#apply" class="text-link">Apply for this programme →</a>
+          </article>
+          <article class="programme-card">
+            <span class="tag active">Active</span>
+            <h3>IT Technical Support</h3>
+            <p>Learnership • MICT SETA • NQF 5</p>
+            <div class="card-meta"><span>Capacity</span><strong>30</strong></div>
+            <a href="#apply" class="text-link">Apply for this programme →</a>
+          </article>
+          <article class="programme-card">
+            <span class="tag upcoming">Upcoming</span>
+            <h3>Cybersecurity</h3>
+            <p>Skills Programme • MICT SETA • NQF 5</p>
+            <div class="card-meta"><span>Capacity</span><strong>25</strong></div>
+            <a href="#apply" class="text-link">Register interest →</a>
+          </article>
+          <article class="programme-card">
+            <span class="tag upcoming">Upcoming</span>
+            <h3>Data Analytics</h3>
+            <p>Skills Programme • MICT SETA • NQF 5</p>
+            <div class="card-meta"><span>Capacity</span><strong>25</strong></div>
+            <a href="#apply" class="text-link">Register interest →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section section-muted">
+      <div class="container">
+        <div class="section-heading centered">
+          <div class="eyebrow">Candidate journey</div>
+          <h2>One clear process from application to decision</h2>
+          <p>The website is the candidate entry point. Salesforce remains the internal system of record.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><span>01</span><h3>Apply</h3><p>Submit your application and receive a reference number.</p></div>
+          <div class="step"><span>02</span><h3>Upload</h3><p>Provide the documents required for your selected programme.</p></div>
+          <div class="step"><span>03</span><h3>Review</h3><p>Staff review your application and compliance documents.</p></div>
+          <div class="step"><span>04</span><h3>Track</h3><p>Use your reference to follow the application outcome.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apply" class="section">
+      <div class="container apply-grid">
+        <div>
+          <div class="eyebrow">New application</div>
+          <h2>Ready to apply?</h2>
+          <p class="large-copy">Your application is stored and managed in the Mfanageza Salesforce CRM. For the secure candidate experience, continue to the Salesforce portal.</p>
+          <ul class="check-list">
+            <li>Complete your candidate details</li>
+            <li>Select a programme</li>
+            <li>Submit required supporting documents</li>
+            <li>Keep your application reference</li>
+          </ul>
+          <a class="button primary" data-salesforce-link href="#">Continue to secure application</a>
+          <p class="small-note">The Salesforce portal URL is configured by the CRM administrator. No Salesforce passwords or tokens are stored in this GitHub website.</p>
+        </div>
+        <div class="integration-card">
+          <div class="integration-icon">☁</div>
+          <h3>Salesforce connection</h3>
+          <p>This front-end is designed as the public candidate entry point while Salesforce handles candidate records, applications, programmes, compliance and reporting.</p>
+          <div class="architecture">
+            <div>Candidate website</div><span>→</span><div>Salesforce portal</div><span>→</span><div>CRM records</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="status" class="section section-dark">
+      <div class="container status-grid">
+        <div>
+          <div class="eyebrow light">Application status</div>
+          <h2>Need to check your application?</h2>
+          <p>Use the secure Salesforce candidate portal to view the information available for your application.</p>
+        </div>
+        <a class="button light-button" data-salesforce-link href="#">Open candidate portal</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <div><strong>Mfanageza Trading & Projects</strong><p>Candidate application portal</p></div>
+      <div><span>Powered by a Salesforce CRM solution</span></div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
