@@ -350,3 +350,119 @@ The final project should demonstrate a complete story:
 **Business problem → Requirements → Data model → Salesforce configuration → Data quality → Automation → Data import → Reporting → User experience → Testing → Documentation**
 
 The purpose is not to present the project as finished before it is finished. The purpose is to show a genuine Salesforce Administrator learning and implementation journey, including decisions, troubleshooting and continuous improvement.
+
+
+## Stage 15 — Project Scope Review and Completion Plan — 23 September 2026
+
+Today I reviewed the current Mfanageza Trading & Projects CRM against the proposed end-to-end process for a small IT academy.
+
+The review helped me separate what I have already built from what is still planned. I do not want to document unfinished features as if they are complete, so I updated my thinking around the project scope and the order in which I should finish the system.
+
+### What I confirmed
+
+The core Salesforce CRM foundation is already in place:
+
+- Candidate management using Contact
+- Candidate Application
+- Programme management
+- Compliance Document management
+- Lookup relationships
+- Lightning App navigation
+- Three validation rules
+
+The Candidate Application status Flow is still **In Progress** and needs to be completed and tested.
+
+### What I still need to build
+
+My remaining development work is:
+
+1. Finish and test the Candidate Application status Flow.
+2. Complete the Compliance Document verification process.
+3. Build and test compliance-related automation and notifications.
+4. Review the candidate data model and add important requirements where necessary.
+5. Implement and test South African ID data validation where appropriate.
+6. Prepare sample candidate data and test Excel/CSV import.
+7. Build operational Salesforce reports.
+8. Build a management dashboard.
+9. Complete end-to-end testing.
+10. Continue documenting the project with screenshots and test evidence.
+11. Configure Salesforce Experience Cloud for the candidate-facing experience.
+12. Test candidate permissions, application submission, document upload and application tracking.
+
+### SETA preparation
+
+I also reviewed the idea of preparing SETA data from Salesforce.
+
+The project can eventually provide a structured Salesforce report or export containing the information required for the relevant SETA process. I will only define the final export fields after confirming the actual requirements and templates that apply to the academy.
+
+For now, SETA preparation remains part of the planned functionality rather than a completed feature.
+
+### Candidate portal
+
+The public Mfanageza Digital Skills Academy website is already in the repository.
+
+The website is designed as the public entry point, while Salesforce Experience Cloud is planned to provide the secure candidate-facing functionality.
+
+The live Salesforce connection is not yet complete.
+
+### LMS integration
+
+I also reviewed the idea of connecting Salesforce to an LMS such as Moodle.
+
+I decided not to make LMS integration part of the current core build. It would introduce a separate integration project involving LMS setup, authentication, APIs, user creation, course enrolment and error handling.
+
+I will keep LMS integration as a **future enhancement**.
+
+The intended future process is:
+
+```text
+Salesforce
+    ↓
+Candidate becomes Enrolled
+    ↓
+Integration
+    ↓
+LMS
+    ↓
+Student account and course enrolment
+```
+
+### My completion strategy
+
+I want to finish the project in stages rather than trying to build everything at once:
+
+```text
+CRM Foundation
+      ↓
+Data Quality
+      ↓
+Automation
+      ↓
+Compliance
+      ↓
+Data Import
+      ↓
+Reports
+      ↓
+Dashboard
+      ↓
+Candidate Portal
+      ↓
+End-to-End Testing
+      ↓
+Final Documentation
+```
+
+My main goal is to have a working and testable Salesforce CRM before adding more advanced integrations.
+
+### What I learned from today's review
+
+Today's review reminded me that a good Salesforce project is not only about creating objects and fields. I also need to think about the complete business process, user experience, data quality, automation, security, reporting and testing.
+
+I also learned that keeping the scope controlled is important. I would rather have a smaller system that I can demonstrate and explain properly than claim that an LMS integration or candidate portal is complete when it has not been tested.
+
+### Current focus
+
+My immediate next task is to return to the **Candidate Application status Flow**, fix the Assignment stage, activate the Flow and test the automation.
+
+After that, I will continue through the remaining stages until the CRM can demonstrate a complete journey from candidate application to compliance, reporting and management visibility.
