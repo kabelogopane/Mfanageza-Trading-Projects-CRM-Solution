@@ -183,7 +183,7 @@ The GitHub website provides the public entry point. Salesforce Experience Cloud 
 
 ## Development Roadmap
 
-### Phase 1 — CRM Foundation ✅
+### Phase 1 — CRM Foundation 
 - Candidate management using Contact
 - Candidate Application custom object
 - Programme custom object
@@ -193,17 +193,17 @@ The GitHub website provides the public entry point. Salesforce Experience Cloud 
 - Custom tabs
 - Lightning App navigation
 
-### Phase 2 — Data Quality ✅
+### Phase 2 — Data Quality 
 - Application date validation
 - Programme requirement validation
 - Start/application date validation
 
-### Phase 3 — Automation 🔄
+### Phase 3 — Automation 
 - Finish Candidate Application status Flow
 - Build and test compliance automation
 - Configure candidate notifications
 
-### Phase 4 — Candidate Portal 🔄
+### Phase 4 — Candidate Portal 
 - Public candidate website **implemented**
 - Configure Salesforce Experience Cloud
 - Connect application submission
@@ -211,19 +211,19 @@ The GitHub website provides the public entry point. Salesforce Experience Cloud 
 - Connect document upload
 - Test user permissions and sharing
 
-### Phase 5 — Data Management ⏳
+### Phase 5 — Data Management 
 - Prepare sample Excel dataset
 - Export to CSV
 - Import into Salesforce
 - Map fields
 - Test data quality and relationships
 
-### Phase 6 — Reporting ⏳
+### Phase 6 — Reporting 
 - Build operational reports
 - Build management dashboard
 - Test dashboard data
 
-### Phase 7 — Portfolio Documentation 📸
+### Phase 7 — Portfolio Documentation 
 - Capture screenshots for each major feature
 - Record configuration decisions
 - Record problems and solutions
