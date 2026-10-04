@@ -106,3 +106,127 @@ I am trying to build this project honestly.
 I do not want to claim that a feature is complete just because I have planned it or designed how it should work. I want to be able to demonstrate the configuration, test it, show the result and explain the business value.
 
 My immediate next step is to finish the Candidate Application Flow and continue building from there.
+
+
+## 4 October 2026
+
+### Today's work
+
+Today I consolidated the Candidate Application data and reviewed the current Salesforce data model against the actual records already created in the project.
+
+### Candidate Application data confirmed
+
+The current Candidate Application design contains:
+
+- Application Number
+- Application Date
+- Application Status
+- Candidate lookup to Contact
+- Employment Status
+- Province
+- SETA
+- SETA Registration Status
+- Start Date
+- Programme Type
+- Programme Lookup
+
+### Current test application
+
+The documented test application is:
+
+- Application Number: APP-00001
+- Application Date: 2026-08-28
+- Application Status: New
+- Employment Status: Unemployed
+- Province: Gauteng
+- SETA: MICT SETA
+- SETA Registration Status: Submitted
+- Start Date: 2026-10-05
+- Programme Type: Learnership
+- Programme: IT Systems Development
+
+The test application has four supporting compliance-document records:
+
+- Identity Book
+- CV
+- Matric
+- Residence
+
+### Programme data confirmed
+
+The current programme records are:
+
+1. IT Systems Development — Learnership, MICT SETA, NQF 5, capacity 30, Active.
+2. IT Technical Support — Learnership, MICT SETA, NQF 5, capacity 30, Active.
+3. Cybersecurity & Data Analytics — Skills Programme, MICT SETA, NQF 5, capacity 25, Upcoming.
+
+### Data relationships confirmed
+
+The current relationship is:
+
+```
+Contact / Candidate
+        ↓
+Candidate Application
+        ↓
+Programme
+
+Candidate Application
+        ↓
+Compliance Documents
+```
+
+This keeps the person, application, programme and supporting documents as separate parts of the CRM data model.
+
+### Data quality confirmed
+
+The project currently has three validation rules:
+
+1. Application Date cannot be in the future.
+2. A Submitted application requires a Programme.
+3. Start Date cannot be earlier than Application Date.
+
+### Automation status
+
+The Candidate Application status Flow is still **In Progress**.
+
+The intended automation remains:
+
+```
+SETA Registration Status = Submitted
+        +
+Programme selected
+        +
+Application Status = New
+        ↓
+Application Status = Submitted
+```
+
+The Assignment stage still needs to be completed. After that I need to activate the Flow and test it with valid and invalid application records.
+
+### Reporting requirements identified
+
+The next reporting stage should cover:
+
+- Applications by Status
+- Applications by Programme
+- Applications by Province
+- Applications by SETA
+- Applications by Employment Status
+- Compliance Documents by Status
+- Documents Awaiting Verification
+- Verified Documents
+- Rejected Documents
+- Programme Capacity and Demand
+
+### Today's project decision
+
+I am keeping the Candidate Application data model as the current source of truth and will finish the existing CRM workflow before adding unnecessary features.
+
+The next technical task remains:
+
+**Finish the Candidate Application Flow → test it → then continue to compliance, data import, reports and dashboard work.**
+
+### Portfolio documentation rule
+
+I will continue documenting the actual implementation status honestly. A feature will only be described as implemented after it has been configured and tested.
