@@ -9,7 +9,7 @@
 
 ---
 
-## Project in simple English
+## Project
 
 This project is a Salesforce CRM for managing people who apply for training and skills-development programmes.
 
