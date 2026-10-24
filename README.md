@@ -9,38 +9,35 @@
 
 ---
 
-## Project Overview
+## Project in simple English
 
-The **Mfanageza Trading & Projects CRM Solution** is a Salesforce portfolio project designed around a South African training, recruitment and skills-development environment.
+This project is a Salesforce CRM for managing people who apply for training and skills-development programmes.
 
-The goal is to build a practical CRM that manages candidates, applications, programmes and compliance documentation while demonstrating hands-on Salesforce administration, data modelling, business analysis, data quality, automation, reporting and problem-solving.
+The system is being built to keep candidate information, applications, programmes and compliance documents in one place.
 
-The main business journey is:
+The main business process is:
 
 **Candidate → Application → Programme → Compliance → Verification → Decision / Enrolment → Reporting**
 
-> **Important:** This repository separates the current **new Salesforce org** from older project work. A feature is only marked complete when it has been confirmed in the current org and, where appropriate, tested.
+The immediate goal is simple: **make the core system work from beginning to end before adding advanced features.**
+
+> **Important:** GitHub documents the project. The current Salesforce org is the source of truth for what is actually configured. A feature is only marked complete when it has been confirmed in the current org and tested where testing is required.
 
 ---
 
 ## Current New-Org Architecture
 
 ```text
-                         CONTACT
-                       (Candidate)
-                            │
-                            │ Lookup
-                            ▼
-                 CANDIDATE APPLICATION
-                            │
-                 ┌──────────┼──────────┐
-                 │          │          │
-                 ▼          ▼          ▼
-            PROGRAMME   APPLICATION   COMPLIANCE
-             LOOKUP        DATA       DOCUMENTS
-                 │
-                 ▼
-          Programme Details
+CONTACT
+(Business role: Candidate)
+       │
+       │ Lookup
+       ▼
+CANDIDATE APPLICATION
+       │
+       ├──────────────► PROGRAMME
+       │
+       └──────────────► COMPLIANCE DOCUMENTS
 ```
 
 ### Important architecture finding
@@ -51,33 +48,50 @@ Therefore the current technical relationship is:
 
 **Contact (business role: Candidate) → Candidate Application → Programme**
 
-The custom Candidate object has not been deleted, and no duplicate Candidate relationship has been created while the architecture is being audited.
+The custom Candidate object has not been deleted, and no duplicate Candidate relationship has been created while the architecture is being reviewed.
 
 ---
 
-## New Salesforce Org — Confirmed Foundation
+# Main Objects
 
-### Candidate
+## 1. Candidate
 
-A custom **Candidate** object exists.
+The Candidate object is intended to store information about the person applying.
 
-Previously confirmed fields include:
+Known fields include:
 
 - Candidate Name
 - Email
-- Employment Status
 - Phone
-- Province
 - SA ID Number
+- Province
+- Employment Status
 - Created By
 - Last Modified By
 - Owner
 
-Additional candidate fields are not marked complete until they appear in the latest Fields & Relationships audit.
+## 2. Programme
 
-### Candidate Application
+The Programme object stores information about programmes that candidates can apply for.
 
-The custom application object currently has these 11 fields:
+Phase 1 fields are:
+
+- Programme Name
+- Programme Type
+- SETA
+- NQF Level
+- Capacity
+- Start Date
+- End Date
+- Status
+
+The final latest picklist configuration still needs an audit.
+
+## 3. Candidate Application
+
+The Candidate Application object represents the application submitted by a candidate.
+
+Confirmed fields:
 
 | Field | API Name | Type |
 |---|---|---|
@@ -95,7 +109,7 @@ The custom application object currently has these 11 fields:
 
 ### Application Status
 
-The current active values are:
+Current confirmed values:
 
 1. New
 2. Under Review
@@ -105,88 +119,104 @@ The current active values are:
 6. Enrolled
 7. Rejected
 
-The field is a restricted picklist, is not required, has no default value, has no dependencies and currently has no validation rules defined on the field itself.
-
 ### Application Number
 
 `Application_Number__c` is an Auto Number field.
 
-The last confirmed existing display format was:
+The last confirmed display format was:
 
 ```text
 APP-{000}
 ```
 
-The intended format being configured is:
+The intended format is:
 
 ```text
 APP-{00000}
 ```
 
-with Starting Number `1` and **Generate Auto Number for existing records** left unchecked.
+with Starting Number `1`.
 
-**Save confirmation remains pending until verified in Salesforce.**
+Final save confirmation is still pending.
 
-### Programme
+## 4. Compliance Document
 
-The custom Programme object exists and includes fields for programme name, capacity, NQF level, SETA, start date, end date and status. Programme Type has also been part of the current implementation, but the exact latest picklist configuration still requires an audit before it is treated as final.
+The Compliance Document object tracks documents connected to an application.
 
-### Compliance Document
+Known fields include:
 
-The custom Compliance Document object exists with:
-
-- Candidate Application — Master-Detail relationship
 - Compliance Document Name
+- Candidate Application
 - Document Type
-- Rejection Reason
+- Verification Status
 - Upload Date
 - Verification Date
-- Verification Status
+- Rejection Reason
 - Created By
 - Last Modified By
 
-The end-to-end document upload and verification journey remains to be tested in the new org.
+The Candidate Application relationship is **Master-Detail**.
+
+The full document upload and verification process still needs end-to-end testing.
 
 ---
 
-## Confirmed Relationships
+# Core Data Model
 
 ```text
-Candidate Application.Candidate__c
-        ↓
 Contact
-```
-
-```text
-Candidate Application.Programme__c
-        ↓
-Programme
-```
-
-```text
-Compliance Document.Candidate_Application__c
-        ↓
+  │
+  │ Candidate Application.Candidate__c
+  ▼
 Candidate Application
+  │
+  ├── Programme__c ─────────► Programme
+  │
+  └── Candidate_Application__c
+              │
+              ▼
+      Compliance Document
 ```
 
 ---
 
-## Current Development State
+# Phase 1 — Minimum Working System
 
-### Confirmed
+Phase 1 is successful when we can:
+
+1. Create or identify a candidate.
+2. Create a programme.
+3. Create a candidate application.
+4. Connect the application to the candidate.
+5. Connect the application to the programme.
+6. Add compliance documents.
+7. Update document verification status.
+8. Update application status.
+9. View the connected records.
+10. Complete the basic process without errors.
+
+The working approach is:
+
+**Build → Test → Find problems → Fix → Test again → Improve**
+
+---
+
+# Project Status
+
+## Confirmed
 
 - New Salesforce org is being audited from the actual configuration.
 - Candidate custom object exists.
-- Candidate Application custom object exists.
-- Programme custom object exists.
-- Compliance Document custom object exists.
+- Candidate Application exists.
+- Programme exists.
+- Compliance Document exists.
 - Candidate Application → Contact lookup exists.
 - Candidate Application → Programme lookup exists.
 - Compliance Document → Candidate Application Master-Detail exists.
 - Application Number Auto Number exists.
 - Application Status picklist exists with seven active values.
 
-### In Progress / Pending Verification
+## In Progress / Pending Verification
 
 - Final Application Number format save confirmation.
 - Candidate navigation and record-entry architecture.
@@ -194,12 +224,12 @@ Candidate Application
 - Compliance Document configuration audit.
 - End-to-end application creation test.
 - End-to-end compliance document test.
-- Validation rules in the new org.
-- Automation/flows in the new org.
+- Validation rules.
+- Automation/flows.
 - Reports and dashboard.
 - Final end-to-end demonstration.
 
-### Planned
+## Planned
 
 - Candidate-facing portal integration.
 - Salesforce Experience Cloud configuration.
@@ -210,44 +240,7 @@ Candidate Application
 
 ---
 
-## Candidate Portal Website
-
-A responsive public-facing **Candidate Portal website** has been added to this repository.
-
-The intended architecture is:
-
-```text
-Candidate
-   ↓
-GitHub Pages Website
-   ↓
-Salesforce Experience Cloud
-   ↓
-Salesforce CRM
-```
-
-The website front end is implemented, but the live Salesforce connection is **not claimed as complete** until Experience Cloud, permissions, application submission, document upload and record access are tested.
-
-See `docs/CANDIDATE-PORTAL.md` for the portal architecture and implementation plan where available.
-
----
-
-## Development Documentation
-
-The project documentation is being maintained alongside the Salesforce implementation:
-
-- `documentation/new-org-baseline.md` — verified new-org baseline
-- `documentation/data-model.md` — objects, fields and relationships
-- `documentation/configuration-notes.md` — configuration decisions and audit notes
-- `documentation/requirements.md` — business and system requirements
-- `testing/test-plan.md` — test cases and expected results
-- `DEVELOPMENT_LOG.md` — chronological development record
-
-The repository should always distinguish **Confirmed**, **In Progress**, **Pending Verification**, and **Planned** work.
-
----
-
-## Development Roadmap
+# Development Phases
 
 ### Phase 1 — CRM Foundation
 
@@ -261,28 +254,29 @@ The repository should always distinguish **Confirmed**, **In Progress**, **Pendi
 
 ### Phase 2 — Data Quality
 
-- Application date validation
-- Programme requirement validation
-- Start/application date validation
+- Validation rules
+- Date checks
+- Programme requirement checks
+- Better required-field design
 
 ### Phase 3 — Automation
 
-- Candidate Application status automation
+- Application status automation
 - Compliance automation
-- Appropriate candidate notifications
+- Appropriate notifications
 
 ### Phase 4 — Candidate Portal
 
-- Public candidate website
+- Candidate-facing website
 - Salesforce Experience Cloud
 - Application submission
 - Candidate-specific application status
 - Document upload
-- User permissions and sharing
+- Permissions and sharing
 
 ### Phase 5 — Data Management
 
-- Sample Excel dataset
+- Sample data
 - CSV preparation
 - Salesforce import
 - Field mapping
@@ -304,15 +298,61 @@ The repository should always distinguish **Confirmed**, **In Progress**, **Pendi
 
 ---
 
-## Business Value
+# Documentation
 
-The intended solution is designed to reduce manual administration, improve candidate data quality, make compliance tracking easier, improve application visibility, reduce repetitive communication work and provide a scalable CRM foundation for future candidate services.
+The project is documented in simple English in the following files:
+
+- [`documentation/project-overview.md`](documentation/project-overview.md) — complete project overview.
+- [`documentation/new-org-baseline.md`](documentation/new-org-baseline.md) — verified new-org baseline.
+- [`documentation/data-model.md`](documentation/data-model.md) — objects, fields and relationships.
+- [`documentation/configuration-notes.md`](documentation/configuration-notes.md) — configuration decisions and audit notes.
+- [`documentation/requirements.md`](documentation/requirements.md) — business and system requirements.
+- [`testing/test-plan.md`](testing/test-plan.md) — test cases and expected results.
+- [`DEVELOPMENT_LOG.md`](DEVELOPMENT_LOG.md) — chronological development history.
+
+The repository separates **Confirmed**, **Tested**, **In Progress**, **Pending Verification**, and **Planned** work.
 
 ---
 
-## Author
+# Candidate Portal
+
+A responsive public-facing candidate portal website is also part of the repository.
+
+The intended architecture is:
+
+```text
+Candidate
+   ↓
+Candidate Portal Website
+   ↓
+Salesforce Experience Cloud
+   ↓
+Salesforce CRM
+```
+
+The website front end exists, but the live Salesforce connection is **not claimed as complete** until Experience Cloud, permissions, application submission, document upload and record access are tested.
+
+---
+
+# Security and Privacy
+
+The system may contain personal information such as names, email addresses, phone numbers and South African ID numbers.
+
+Security, privacy and access control therefore need to be considered before production use.
+
+The project context also includes POPIA and PAIA requirements. This repository does not claim legal compliance; a proper legal and security review would be required before production deployment.
+
+---
+
+# Business Value
+
+The intended solution should help reduce manual administration, improve candidate data quality, make compliance tracking easier, improve application visibility and provide a foundation for automation and reporting.
+
+---
+
+# Author
 
 **Kabelo Gopane**  
 Salesforce Administrator | Business Analyst | CRM Enthusiast
 
-This is a portfolio project demonstrating hands-on Salesforce administration, CRM design, business analysis, data management, automation, reporting and problem-solving.
+This is a portfolio project demonstrating practical Salesforce administration, CRM design, business analysis, data management, testing, automation planning, reporting and problem-solving.
