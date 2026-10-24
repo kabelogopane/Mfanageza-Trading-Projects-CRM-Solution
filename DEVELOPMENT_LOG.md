@@ -1,68 +1,185 @@
 # Development Log
 
-## 2026-10-22 — New Salesforce Org Foundation Audit
+## 2026-10-24 — Full Project Documentation Baseline
 
 ### Objective
 
-Establish a clean, evidence-based baseline for the new Salesforce org before adding automation, validation rules, reports or further upgrades.
+Document the full Mfanageza Candidate Application project in simple English and keep GitHub aligned with the current Salesforce work.
 
-### Confirmed work
+### Project documented
 
-- Confirmed a custom **Candidate** object exists.
-- Audited **Candidate Application** Fields & Relationships.
-- Confirmed 11 application fields are present:
-  - Application Date
-  - Application Number
-  - Application Status
-  - Candidate
-  - Candidate Application Name
-  - Created By
-  - Last Modified By
-  - Owner
-  - Programme
-  - Programme Type
-  - Start Date
-- Confirmed `Candidate__c` is **Lookup(Contact)**.
-- Confirmed `Programme__c` is **Lookup(Programme)**.
-- Confirmed `Application_Number__c` is **Auto Number**.
-- Confirmed `Application_Status__c` is a restricted picklist.
-- Confirmed Application Status values:
-  - New
-  - Under Review
-  - Compliance Review
-  - Documents Required
-  - Approved
-  - Enrolled
-  - Rejected
-- Confirmed Application Status has no default value and is not required.
-- Confirmed the Application Status field has no dependencies or validation rules.
-- Confirmed the existing Application Number display format was `APP-{000}` before the planned change.
-- Identified the Auto Number edit settings for Display Format and Starting Number.
-- Planned the format `APP-{00000}` with Starting Number `1`.
-- Left **Generate Auto Number for existing records** unchecked.
+The project is a Salesforce CRM for managing candidates who apply for training and skills-development programmes.
 
-### Important architecture finding
+The main business journey is:
 
-The business model calls the applicant a Candidate, but the current Candidate Application relationship points to the standard Salesforce **Contact** object. The custom Candidate object also exists. No duplicate relationship was created and no object was deleted.
+```text
+Candidate → Candidate Application → Programme → Compliance Documents → Verification → Decision / Enrolment → Reporting
+```
 
-### Pending verification
+### Main Salesforce objects
 
-- Confirm that the Application Number format change was saved successfully.
-- Confirm whether Candidate Application records already exist.
-- Verify Candidate tab/navigation and the actual record-entry object used by the working app.
-- Audit Programme fields and picklist values.
-- Audit Compliance Document picklist values and end-to-end file handling.
-- Verify validation rules and flows in the new org rather than assuming older-org configuration exists.
-- Test application creation end to end.
-- Build/test reports and dashboard.
+- Candidate
+- Programme
+- Candidate Application
+- Compliance Document
 
-### Documentation created
+### Candidate
 
-- `documentation/new-org-baseline.md`
-- `documentation/data-model.md`
-- `documentation/configuration-notes.md`
-- `documentation/requirements.md`
-- `testing/test-plan.md`
+The Candidate object exists in the new org.
+
+Known fields include:
+
+- Candidate Name
+- Email
+- Phone
+- SA ID Number
+- Province
+- Employment Status
+- Created By
+- Last Modified By
+- Owner
+
+### Candidate Application
+
+The current object contains 11 confirmed fields:
+
+- Application Date
+- Application Number
+- Application Status
+- Candidate
+- Candidate Application Name
+- Created By
+- Last Modified By
+- Owner
+- Programme
+- Programme Type
+- Start Date
+
+Confirmed relationships:
+
+- `Candidate__c` → Lookup(Contact)
+- `Programme__c` → Lookup(Programme)
+
+Confirmed configuration:
+
+- `Application_Number__c` → Auto Number
+- `Application_Status__c` → restricted Picklist
+
+Current Application Status values:
+
+1. New
+2. Under Review
+3. Compliance Review
+4. Documents Required
+5. Approved
+6. Enrolled
+7. Rejected
+
+### Programme
+
+The Programme object exists.
+
+The Phase 1 business fields are:
+
+- Programme Name
+- Programme Type
+- SETA
+- NQF Level
+- Capacity
+- Start Date
+- End Date
+- Status
+
+The final current picklist configuration still needs an audit.
+
+### Compliance Document
+
+The Compliance Document object exists.
+
+Known fields include:
+
+- Compliance Document Name
+- Candidate Application
+- Document Type
+- Verification Status
+- Upload Date
+- Verification Date
+- Rejection Reason
+- Created By
+- Last Modified By
+
+The Candidate Application relationship is Master-Detail.
+
+The end-to-end document process is not yet marked as tested.
+
+### Important architecture decision
+
+The business role is called Candidate, but the current application lookup points to the standard Salesforce Contact object.
+
+A custom Candidate object also exists.
+
+No duplicate Candidate relationship was created and the custom Candidate object was not deleted while the architecture is being reviewed.
+
+This is important because the project must not accidentally create two competing ways to identify a candidate.
+
+### Phase 1 goal
+
+The first working version must prove this process:
+
+1. Create or identify a candidate.
+2. Create a programme.
+3. Create a candidate application.
+4. Connect the application to the candidate.
+5. Connect the application to the programme.
+6. Add compliance documents.
+7. Verify or update documents.
+8. Update application status.
+9. View connected records.
+10. Confirm the process works.
+
+### Current status
+
+**Confirmed:**
+
+- New Salesforce org is being used as the configuration source of truth.
+- Candidate custom object exists.
+- Candidate Application exists.
+- Programme exists.
+- Compliance Document exists.
+- Candidate Application → Contact lookup exists.
+- Candidate Application → Programme lookup exists.
+- Compliance Document → Candidate Application Master-Detail exists.
+- Application Number Auto Number exists.
+- Application Status picklist exists with seven active values.
+
+**Pending verification:**
+
+- Final Application Number format save.
+- Final Candidate navigation and record-entry architecture.
+- Final Programme field and picklist configuration.
+- Final Compliance Document configuration.
+- End-to-end application creation.
+- End-to-end document upload/verification.
+- Validation rules.
+- Flows/automation.
+- Reports and dashboard.
+- Final demonstration.
+
+### Documentation added or maintained
+
+- `documentation/project-overview.md` — complete project overview in simple English.
+- `documentation/new-org-baseline.md` — verified new-org baseline.
+- `documentation/data-model.md` — objects, fields and relationships.
+- `documentation/configuration-notes.md` — configuration decisions and audit notes.
+- `documentation/requirements.md` — business and system requirements.
+- `testing/test-plan.md` — test cases and expected results.
+- `DEVELOPMENT_LOG.md` — chronological project history.
+
+### Documentation rule
+
+GitHub must distinguish between work that is **Confirmed**, **Tested**, **In Progress**, **Pending Verification**, and **Planned**.
+
+A feature must not be called complete only because it was discussed or planned. It should be confirmed in the current Salesforce org and tested when testing is required.
 
 ### Repository update rule
 
