@@ -41,9 +41,10 @@
         <section class="form-section">
           <div class="form-section-heading"><span>02</span><div><h2>Certified supporting documents</h2><p>Select clear, readable certified copies. Make sure every page is included.</p></div></div>
           <div class="field field-wide document-upload-field">
-            <label for="certifiedDocuments">Choose PDF documents * (maximum 5 files, 5 MB each)</label>
-            <input id="certifiedDocuments" name="certifiedDocuments" type="file" accept=".pdf,application/pdf" multiple required aria-describedby="certifiedDocumentsHelp">
-            <small id="certifiedDocumentsHelp">PDF format only. Upload certified copies with the certification stamp, date and certifier details visible. Do not upload original documents, photographs, Word files or uncertified copies.</small>
+            <label for="certifiedDocuments">Supporting documents * (PDF only · maximum 5 files, 5 MB each)</label>
+            <input class="document-file-input" id="certifiedDocuments" name="certifiedDocuments" type="file" accept=".pdf,application/pdf" multiple aria-describedby="certifiedDocumentsHelp">
+            <label class="button primary add-documents-button" for="certifiedDocuments"><span aria-hidden="true">＋</span> Add Documents</label>
+            <small id="certifiedDocumentsHelp">Upload certified copies with the certification stamp, date and certifier details visible. PDF files only. Do not upload original documents, photographs, Word files or uncertified copies.</small>
             <p id="selectedDocumentList" class="field-guidance" role="status" aria-live="polite">No files selected. Maximum 5 PDF files.</p>
           </div>
           <label class="consent-check document-certification-check"><input type="checkbox" id="certificationConfirmation" name="certificationConfirmation" required><span>I confirm that the documents I have selected are certified copies and that the information provided is accurate. *</span></label>
