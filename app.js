@@ -31,6 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // The public application form is a preview only until a secure Salesforce
+  // submission endpoint or Experience Cloud form has been configured.
+  const candidateForm = document.getElementById('candidateApplicationForm');
+  const candidateMessage = document.getElementById('applicationFormMessage');
+
+  candidateForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    if (!candidateForm.reportValidity()) return;
+    if (candidateMessage) {
+      candidateMessage.textContent = 'Your form preview is complete, but it has NOT been submitted or saved. The secure Salesforce candidate portal must be connected before applications can be received.';
+      candidateMessage.classList.add('form-message-warning');
+    }
+  });
+
   // Until the real portal is configured, this is an explanatory hand-off only.
   // Do not imply that a reference has been checked against Salesforce.
   const form = document.getElementById('statusForm');
