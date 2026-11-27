@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mfanageza Trading and Projects candidate programme application form.">
+  <meta name="theme-color" content="#102c66">
+  <title>Candidate Application | Mfanageza Trading &amp; Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="academy.css">
+</head>
+<body class="application-page">
+  <div class="announcement"><span class="announcement-dot"></span> MFANAGEZA TRADING &amp; PROJECTS <span class="announcement-divider">✳</span> CANDIDATE APPLICATION</div>
+  <header class="site-header"><div class="container nav-wrap">
+    <a class="brand" href="index.html" aria-label="Back to Mfanageza website"><img class="brand-logo" src="https://raw.githubusercontent.com/kabelogopane/Mfanageza-Trading-and-Projects/main/logo.jfif" alt="Mfanageza Trading and Projects logo"><span class="brand-name">MFANAGEZA <small>TRADING &amp; PROJECTS</small></span></a>
+    <a class="back-link" href="index.html">← Back to website</a>
+  </div></header>
+
+  <main class="application-main">
+    <div class="container application-container">
+      <div class="application-page-heading">
+        <div class="eyebrow">Candidate application · South Africa</div>
+        <h1>Take your next step.</h1>
+        <p>Complete the form carefully. Use your official details and check your answers before continuing.</p>
+        <div class="application-progress"><span>APPLICATION FORM</span><span>Candidate information</span></div>
+      </div>
+
+      <div class="preview-alert" role="note">
+        <strong>Preview mode — submissions are not live yet.</strong>
+        This form is being prepared for the secure Mfanageza Salesforce portal. Do not enter real personal information on this preview page. The submit button will validate the form but will not transmit or save it.
+      </div>
+
+      <form id="candidateApplicationForm" class="candidate-form standalone-form" novalidate>
+        <section class="form-section">
+          <div class="form-section-heading"><span>01</span><div><h2>Personal details</h2><p>Tell us how to identify and contact you.</p></div></div>
+          <div class="form-fields">
+            <div class="field"><label for="firstName">First name(s) *</label><input id="firstName" name="firstName" type="text" autocomplete="given-name" maxlength="60" required></div>
+            <div class="field"><label for="lastName">Surname *</label><input id="lastName" name="lastName" type="text" autocomplete="family-name" maxlength="60" required></div>
+            <div class="field"><label for="email">Email address *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="120" required placeholder="name@example.com"></div>
+            <div class="field"><label for="phone">Cellphone number *</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required placeholder="e.g. 082 123 4567"><small>Use a number where we can reach you.</small></div>
+            <div class="field"><label for="province">Province *</label><select id="province" name="province" required><option value="">Choose province</option><option>Eastern Cape</option><option>Free State</option><option>Gauteng</option><option>KwaZulu-Natal</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option><option>Western Cape</option></select></div>
+            <div class="field"><label for="municipality">City / town *</label><input id="municipality" name="municipality" type="text" maxlength="80" autocomplete="address-level2" required placeholder="e.g. Johannesburg"></div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <div class="form-section-heading"><span>02</span><div><h2>Education background</h2><p>Provide your highest completed education level. This is self-reported and is not an SAQA verification.</p></div></div>
+          <div class="form-fields">
+            <div class="field"><label for="educationLevel">Highest education level completed *</label><select id="educationLevel" name="educationLevel" required><option value="">Select level</option><option>Below Grade 9</option><option>Grade 9 / NQF Level 1</option><option>Grade 10 / NQF Level 2</option><option>Grade 11 / NQF Level 3</option><option>Grade 12 / National Senior Certificate</option><option>Occupational certificate / skills programme</option><option>Higher Certificate</option><option>Diploma</option><option>Bachelor's degree</option><option>Postgraduate qualification</option><option>Other</option></select></div>
+            <div class="field"><label for="educationYear">Year completed</label><input id="educationYear" name="educationYear" type="number" min="1950" max="2026" inputmode="numeric" placeholder="e.g. 2024"></div>
+            <div class="field"><label for="institution">School / institution name</label><input id="institution" name="institution" type="text" maxlength="120" placeholder="Enter institution name"></div>
+            <div class="field"><label for="qualification">Qualification / certificate name</label><input id="qualification" name="qualification" type="text" maxlength="120" placeholder="e.g. National Senior Certificate"></div>
+          </div>
+          <p class="field-guidance">Only select a formal NQF qualification level where you know it. Programme NQF levels and SAQA qualification IDs must be confirmed against the official SAQA register before Mfanageza publishes them.</p>
+        </section>
+
+        <section class="form-section">
+          <div class="form-section-heading"><span>03</span><div><h2>Programme application</h2><p>Choose the programme you want to apply for.</p></div></div>
+          <div class="form-fields">
+            <div class="field"><label for="programme">Programme of interest *</label><select id="programme" name="programme" required><option value="">Select a programme</option><option>IT Systems Development</option><option>IT Technical Support</option><option>Cybersecurity</option><option>Data Analytics</option></select></div>
+            <div class="field"><label for="employmentStatus">Current employment status *</label><select id="employmentStatus" name="employmentStatus" required><option value="">Select status</option><option>Unemployed</option><option>Employed</option><option>Self-employed</option><option>Student</option></select></div>
+            <div class="field field-wide"><label for="motivation">Why are you interested in this programme? <span>(optional)</span></label><textarea id="motivation" name="motivation" rows="4" maxlength="1000" placeholder="Briefly explain what you hope to learn or achieve."></textarea><small>Maximum 1,000 characters. Do not include sensitive personal information.</small></div>
+          </div>
+        </section>
+
+        <section class="privacy-panel" aria-labelledby="privacyHeading">
+          <div class="form-section-heading"><span>04</span><div><h2 id="privacyHeading">Privacy information</h2><p>Please read this before providing information on a live form.</p></div></div>
+          <div class="privacy-copy">
+            <h3>How Mfanageza intends to use applicant information</h3>
+            <p><strong>Responsible party:</strong> Mfanageza Trading &amp; Projects. The organisation's final registered/legal name, physical or postal address, and Information Officer contact details must be confirmed and published here before this form goes live.</p>
+            <p><strong>Purpose:</strong> To receive and assess applications for skills-development and related programmes, contact applicants about their applications, manage programme administration, and meet applicable reporting or legal obligations.</p>
+            <p><strong>Information:</strong> The live form is intended to collect contact details, province and town, education background, employment status, programme choice and information the applicant chooses to provide in the motivation field. Only information necessary for the stated purpose should be required.</p>
+            <p><strong>Access and service providers:</strong> Access should be limited to authorised Mfanageza personnel. Salesforce may be used as the CRM service provider once the system, access controls and any applicable operator arrangements have been configured. Information must not be made public.</p>
+            <p><strong>Voluntary information:</strong> Required fields are marked. If required information is not supplied, Mfanageza may be unable to assess the application. Optional fields may be left blank.</p>
+            <p><strong>Retention:</strong> Records should be retained only for as long as needed for the application purpose or as required/authorised by law, under an approved retention schedule.</p>
+            <p><strong>Your rights:</strong> Subject to applicable law, you may request access to or correction/deletion of your personal information, object to certain processing, or raise a privacy complaint with the Information Regulator. The final live notice must provide the organisation's working privacy contact and the Regulator's current contact details.</p>
+            <p><strong>Children:</strong> If an applicant is under 18, the organisation must apply the appropriate legal safeguards and obtain consent from a competent person where required before processing the child's personal information.</p>
+          </div>
+          <label class="consent-check privacy-ack"><input type="checkbox" id="privacyAcknowledgement" name="privacyAcknowledgement" required><span>I confirm that I have read the privacy information and understand how my information is intended to be used if the secure application service is activated. *</span></label>
+        </section>
+
+        <div class="form-actions"><a class="button secondary" href="index.html">Cancel</a><button class="button primary form-submit" type="submit">Submit application <span>→</span></button></div>
+        <p id="applicationFormMessage" class="form-message" role="status" aria-live="polite">Preview only. No details are sent to or stored by Mfanageza when you press Submit.</p>
+      </form>
+      <div class="application-footer"><span>© 2026 Mfanageza Trading &amp; Projects</span><a href="https://saqa.org.za/services/registration-of-qualifications/" target="_blank" rel="noopener noreferrer">SAQA qualification register ↗</a></div>
+    </div>
+  </main>
+  <script src="apply.js"></script>
+</body>
+</html>
