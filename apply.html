@@ -68,12 +68,12 @@
 
         
         <section class="form-section">
-          <div class="form-section-heading"><span>04</span><div><h2>Submit documents</h2><p>Provide the supporting documents required for your application. Only PDF files are accepted.</p></div></div>
+          <div class="form-section-heading"><span>04</span><div><h2>Submit documents</h2><p>Provide the certified supporting documents required for your application.</p></div></div>
           <div class="field field-wide document-upload-field">
-            <label for="supportingDocuments">Supporting documents (PDF only) *</label>
-            <input id="supportingDocuments" name="supportingDocuments" type="file" accept=".pdf,application/pdf" multiple required aria-describedby="documentUploadHelp">
-            <small id="documentUploadHelp">Select one or more PDF documents. Other file types will be rejected. Make sure each document is clear and readable.</small>
-            <p id="documentUploadStatus" class="field-guidance" role="status" aria-live="polite">No documents selected.</p>
+            <label for="supportingDocuments">Certified supporting documents (PDF only, maximum 2 files) *</label>
+            <input id="supportingDocuments" name="supportingDocuments" type="file" accept=".pdf,application/pdf" multiple required aria-describedby="documentUploadHelp" data-max-files="2">
+            <small id="documentUploadHelp">Upload up to 2 PDF files only. Each file must be a certified copy. Make sure the certification stamp, date and certifier details are visible and that every page is clear and readable. Do not upload photos, Word documents or uncertified copies.</small>
+            <p id="documentUploadStatus" class="field-guidance" role="status" aria-live="polite">No documents selected. Maximum: 2 PDF files.</p>
           </div>
         </section>
 
