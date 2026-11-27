@@ -103,3 +103,37 @@ Do not collect a South African ID number or supporting personal documents on the
 ## Definition of done
 
 The integration is complete only when a test candidate can submit an application through the published candidate experience, the expected Salesforce records and relationships are created correctly, supporting documents are handled securely, and candidate-specific access has been verified.
+
+
+## Standalone application page and South African safeguards
+
+The public website now links to a separate page at `apply.html`. It contains a candidate information form with contact details, province/town, self-reported education background, programme choice and employment status.
+
+The form is currently a **front-end preview only**. Its Submit button performs browser validation and displays a clear message that no application has been transmitted or saved. It must not be represented as a live application service.
+
+The form design uses South African context and POPIA-oriented data-minimisation and transparency principles:
+- No South African identity number, identity-document upload, race, disability or banking details are requested in this first version.
+- Education level is self-reported; it is not a SAQA qualification verification.
+- Programme qualification titles, NQF levels, SAQA IDs, provider status and SETA details must be verified against official records and the relevant quality council/SETA before being advertised as accredited or registered.
+- The privacy notice identifies the intended purpose, categories of information, intended authorised access, retention principle and data-subject rights.
+- Before live launch, complete the organisation's legal/responsible-party identity, address, Information Officer/privacy contact, complaint contact details, retention schedule, privacy policy/PAIA information where applicable, and any required operator arrangements.
+- If applicants under 18 may apply, implement the required child-information safeguards and competent-person consent process before collecting their personal information.
+
+### Go-live requirements
+
+1. Confirm the exact programme titles, delivery type, NQF levels and SAQA IDs using the official SAQA register and the relevant Quality Council/SETA records. SAQA registration of a qualification is not, by itself, proof that a particular provider is accredited to offer it.
+2. Confirm the legal entity acting as the responsible party and approve the final privacy notice.
+3. Configure Salesforce Experience Cloud or another secure server-side submission route. Do not send candidate information directly from GitHub Pages to Salesforce using credentials or secrets in browser code.
+4. Map fields to the verified Salesforce Contact and Candidate Application schema; do not assume the separate Candidate custom object is the current lookup target.
+5. Configure candidate-specific sharing, access controls, retention, audit trail and secure document upload.
+6. Test valid and invalid submissions, duplicate handling, confirmation/reference generation, access isolation and data-subject request handling.
+7. Only then enable the live Submit action and remove preview-mode warnings.
+
+### Official reference points
+
+- [Protection of Personal Information Act 4 of 2013](https://www.treasury.gov.za/POPIA/POPI%20Act%204%20of%202013.pdf)
+- [Information Regulator — POPIA guidance](https://inforegulator.org.za/popia/)
+- [SAQA — Registration of Qualifications and Part-Qualifications](https://saqa.org.za/services/registration-of-qualifications/)
+- [SAQA — Frequently Asked Questions](https://saqa.org.za/frequently-asked-questions/)
+
+This implementation is a design and development baseline, not legal advice or a certification of POPIA compliance, SAQA registration or provider accreditation.
