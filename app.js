@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
       link.rel = 'noopener noreferrer';
       link.removeAttribute('aria-disabled');
     } else {
-      link.href = '#status';
+      link.href = '#apply';
       link.addEventListener('click', event => {
         event.preventDefault();
-        document.getElementById('status')?.scrollIntoView({ behavior: 'smooth' });
-        const message = document.getElementById('statusMessage');
+        document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
+        const message = document.getElementById('portalMessage');
         if (message) {
-          message.textContent = 'The Salesforce candidate portal is not connected yet. Once the Experience Cloud site is published, add its public URL in config.js.';
+          message.textContent = 'The Salesforce application portal is not connected yet. Once the Experience Cloud site is published and tested, add its public URL in config.js.';
         }
       });
     }
