@@ -307,6 +307,7 @@ The project is documented in simple English in the following files:
 - [`documentation/data-model.md`](documentation/data-model.md) — objects, fields and relationships.
 - [`documentation/configuration-notes.md`](documentation/configuration-notes.md) — configuration decisions and audit notes.
 - [`documentation/requirements.md`](documentation/requirements.md) — business and system requirements.
+- [`documentation/candidate-application-salesforce-integration.md`](documentation/candidate-application-salesforce-integration.md) — website-to-Salesforce integration plan and field mapping.
 - [`testing/test-plan.md`](testing/test-plan.md) — test cases and expected results.
 - [`DEVELOPMENT_LOG.md`](DEVELOPMENT_LOG.md) — chronological development history.
 
