@@ -120,3 +120,11 @@ summary:after{color:var(--mfan-yellow)}
 .application-footer{display:flex;justify-content:space-between;gap:15px;padding:22px 0;color:#77869a;font-size:11px}
 .application-footer a{color:var(--mfan-blue);font-weight:700;text-decoration:underline}
 @media(max-width:650px){.application-main{padding:35px 0 20px}.application-page-heading{text-align:left}.application-progress{font-size:9px;padding:12px}.standalone-form{padding:0 18px 24px}.form-fields{grid-template-columns:1fr}.field-wide{grid-column:auto}.form-section{padding:24px 0}.form-section-heading h2{font-size:20px}.privacy-copy{padding:15px}.form-actions{flex-direction:column-reverse}.form-actions .button{width:100%}.application-footer{display:flex;flex-direction:column}.back-link{font-size:12px}}
+
+
+/* Certified document picker button */
+.document-file-input{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.add-documents-button{display:inline-flex;margin:8px 0 4px;min-width:180px;cursor:pointer;border-radius:4px}
+.add-documents-button span{font-size:18px;line-height:1}
+.document-file-input:focus-visible+.add-documents-button{outline:3px solid #ff713b55;outline-offset:3px}
+.document-upload-field .field-guidance{margin-top:12px}
