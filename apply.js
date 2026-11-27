@@ -8,14 +8,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   documents?.addEventListener('change', () => {
     const files = Array.from(documents.files || []);
-    if (!files.length) {
-      documentStatus.textContent = 'No documents selected.';
+    const maxFiles = 2;
+    const invalid = files.filter(file =>
+      !file.name.toLowerCase().endsWith('.pdf') ||
+      (file.type && file.type !== 'application/pdf')
+    );
+
+    if (files.length > maxFiles || invalid.length) {
+      documents.setCustomValidity(
+        files.length > maxFiles
+          ? 'You can upload a maximum of 2 PDF files.'
+          : 'PDF files only. Please remove: ' + invalid.map(file => file.name).join(', ')
+      );
+      documentStatus.textContent = files.length > maxFiles
+        ? 'Too many files selected. Choose no more than 2 PDF files.'
+        : 'PDF files only. Please remove: ' + invalid.map(file => file.name).join(', ');
       return;
     }
-    const invalid = files.filter(file => !file.name.toLowerCase().endsWith('.pdf') || (file.type && file.type !== 'application/pdf'));
-    documentStatus.textContent = invalid.length
-      ? 'Please select PDF files only. Remove: ' + invalid.map(file => file.name).join(', ')
-      : files.length + ' PDF file(s) selected. File contents will be checked when you submit.';
+
+    documents.setCustomValidity('');
+    documentStatus.textContent = files.length
+      ? files.length + ' of 2 PDF file(s) selected. Certification will need to be checked by the application team.'
+      : 'No documents selected. Maximum: 2 PDF files.';
   });
 
   // Accept common South African mobile/landline input styles. Final verification
@@ -28,6 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     if (!form.reportValidity()) {
       message.textContent = 'Please complete the required fields and correct any highlighted information.';
+      message.classList.add('form-message-warning');
+      return;
+    }
+
+    const selectedDocuments = Array.from(documents?.files || []);
+    const invalidDocuments = selectedDocuments.filter(file =>
+      !file.name.toLowerCase().endsWith('.pdf') ||
+      (file.type && file.type !== 'application/pdf')
+    );
+    if (selectedDocuments.length < 1 || selectedDocuments.length > 2 || invalidDocuments.length) {
+      documents?.setCustomValidity(
+        selectedDocuments.length < 1
+          ? 'Please attach at least 1 certified PDF document.'
+          : selectedDocuments.length > 2
+            ? 'You can upload a maximum of 2 PDF files.'
+            : 'PDF files only. Please select valid PDF documents.'
+      );
+      documents?.reportValidity();
+      message.textContent = 'Attach 1 or 2 PDF files only. Documents must be certified copies.';
       message.classList.add('form-message-warning');
       return;
     }
@@ -54,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    message.textContent = 'Your entries and PDF file checks passed, but your application and documents have NOT been submitted or saved. The secure Salesforce submission service is not connected yet. Please do not treat this as an application receipt.';
+    message.textContent = 'Your entries and PDF file checks passed, but your application and documents have NOT been submitted or saved. Certification has not been verified. The secure Salesforce submission service is not connected yet. Please do not treat this as an application receipt.';
     message.classList.add('form-message-warning');
     message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
