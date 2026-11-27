@@ -47,3 +47,31 @@ summary:after{color:var(--mfan-yellow)}
 .footer-links a:hover{color:var(--mfan-yellow)}
 @media(max-width:950px){#mainNav{background:var(--mfan-blue3)!important;color:#fff!important;padding:18px!important;box-shadow:0 14px 30px #07194325}#mainNav a{color:#fff}#mainNav .nav-portal{background:var(--mfan-orange)}}
 @media(max-width:600px){.announcement{font-size:7px;gap:7px;letter-spacing:.1em}.brand-logo{width:42px;height:42px}.brand-name{font-size:11px}.brand-name small{font-size:7px}}
+
+
+/* Candidate application form preview */
+.application-layout{display:grid;grid-template-columns:.78fr 1.22fr;gap:64px;align-items:start}
+.application-intro{position:sticky;top:115px}
+.application-intro h2{max-width:480px}
+.application-note{display:flex;flex-direction:column;gap:8px;margin:28px 0;padding:18px 20px;border-left:4px solid var(--mfan-orange);background:#fff5ef;border-radius:0 6px 6px 0;color:#42536a;font-size:13px}
+.application-note strong{font:800 12px Manrope;text-transform:uppercase;letter-spacing:.08em;color:var(--mfan-blue)}
+.application-note span{line-height:1.65}
+.candidate-form{padding:32px;background:#fff;border:1px solid #dfe7f0;border-radius:8px;box-shadow:0 18px 50px #102c660d}
+.form-heading{padding-bottom:20px;border-bottom:1px solid #e6ebf2;margin-bottom:22px}
+.form-heading h3{font-size:26px;margin:9px 0 6px;color:var(--mfan-blue)}
+.form-heading p{font-size:12px;margin:0}
+.form-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{min-width:0}
+.field-wide{grid-column:1/-1}
+.field label{display:block;margin-bottom:7px;font-size:12px;font-weight:800;color:#243b5b}
+.field label span{font-weight:500;color:#8290a2}
+.field input,.field select,.field textarea{display:block;width:100%;min-height:47px;padding:12px 13px;border:1px solid #ccd6e2;border-radius:5px;background:#fff;color:#182b45;font:500 14px 'DM Sans';}
+.field textarea{resize:vertical;min-height:105px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:3px solid #ff713b25;border-color:var(--mfan-orange)}
+.consent-check{display:flex;align-items:flex-start;gap:10px;margin:22px 0;font-size:12px;color:#52647b;line-height:1.5}
+.consent-check input{margin-top:3px;accent-color:var(--mfan-blue)}
+.form-submit{border-radius:4px;min-width:190px}
+.candidate-form .form-message{padding:12px 14px;background:#f2f6fb;border-radius:4px;color:#52647b;line-height:1.6}
+.candidate-form .form-message-warning{background:#fff5ef;color:#9a3f20;font-weight:700}
+@media(max-width:950px){.application-layout{grid-template-columns:1fr;gap:35px}.application-intro{position:static}}
+@media(max-width:600px){.candidate-form{padding:22px 17px}.form-fields{grid-template-columns:1fr}.field-wide{grid-column:auto}.form-submit{width:100%}}
