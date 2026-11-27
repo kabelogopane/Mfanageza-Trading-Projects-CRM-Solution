@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
       link.rel = 'noopener noreferrer';
       link.removeAttribute('aria-disabled');
     } else {
-      link.href = '#candidateApplicationForm';
+      link.href = 'apply.html';
       link.addEventListener('click', event => {
         event.preventDefault();
-        document.getElementById('candidateApplicationForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.location.href = 'apply.html';
         const message = document.getElementById('portalMessage');
         if (message) {
           message.textContent = 'The Salesforce application portal is not connected yet. Once the Experience Cloud site is published and tested, add its public URL in config.js.';
