@@ -12,23 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const configured = portalUrl.startsWith('https://') &&
     !portalUrl.includes('YOUR-SALESFORCE-EXPERIENCE-DOMAIN');
 
+  // Every Apply call-to-action opens the dedicated application page.
+  // The secure Salesforce hand-off will be implemented by the form submission
+  // service, not by skipping the candidate form.
   document.querySelectorAll('[data-salesforce-link]').forEach(link => {
-    if (configured) {
-      link.href = portalUrl;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.removeAttribute('aria-disabled');
-    } else {
-      link.href = 'apply.html';
-      link.addEventListener('click', event => {
-        event.preventDefault();
-        window.location.href = 'apply.html';
-        const message = document.getElementById('portalMessage');
-        if (message) {
-          message.textContent = 'The Salesforce application portal is not connected yet. Once the Experience Cloud site is published and tested, add its public URL in config.js.';
-        }
-      });
-    }
+    link.href = 'apply.html';
+    link.removeAttribute('target');
+    link.removeAttribute('rel');
   });
 
   // The public application form is a preview only until a secure Salesforce
